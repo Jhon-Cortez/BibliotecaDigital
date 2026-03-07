@@ -1,0 +1,129 @@
+@startuml
+package Observer {
+interface IObserver{
+  +update(data : String)
+}
+}
+package Observable{
+interface IObservable{
+  +attach(observer: IObserver)
+  +detach(observer: IObserver)
+  +notifyObservers(data: String) 
+}
+
+}
+package Entity{
+class Book{
+  -id : Long
+  -title: String
+  -editorial : String
+  -status : boolean
+  -category : String
+  +book(constructor)
+  +set()
+  +get()
+  
+}
+class Loan{
+  -id : Long
+  -loanDate : Date
+  -returnDate : Date
+  -returned : boolean
+  -user : User
+  -book : Book
+  +Loan(user : User, book : Book)
+  +returnBook() : void
+  +getLoanDate() : Date
+  +getReturnDate() : Date
+  +isReturned() : boolean
+}
+class User{
+  -id : Long
+  -name : String
+  -email : String
+
+  +User(id : Long, name : String, email : String)
+  +update(data : String)
+}
+}
+package Service{
+class UserService{
+  -users : List<User>
+
+  +addUser(user : User)
+  +removeUser(userId : Long)
+  +listUsers() : List<User>
+  +findUserById(id : Long) : User
+}
+class BookService{
+  -observers : List<IObserver>
+  -books : List<Book>
+  -strategy : RecommendationStrategy
+  +addBook()
+  +removeBook()
+  +listBook()
+  +filterBook()
+  +setStrategy(strategy : RecommendationStrategy)
+  +recommendBook() : List<Book>
+  +createIterator() : IIterator
+}
+class LoanService{
+  -loans : List<Loan>
+
+  +borrowBook(user : User, book : Book)
+  +returnBook(book : Book)
+  +listLoans() : List<Loan>
+}
+}
+package Strategy{
+
+interface RecommendationStrategy{
+  +recommend(books : List<Book>) : List<Book>
+}
+
+class CategoryRecommendation{
+  +recommend(books : List<Book>) : List<Book>
+}
+
+class EditorialRecommendation{
+  +recommend(books : List<Book>) : List<Book>
+}
+
+}
+package Iterator{
+
+class BookIterator {
+    - books : List<Book>
+    - position : int
+    + BookIterator(books : List<Book>)
+    + hasNext() : boolean
+    + next() : Book
+}
+interface IAgregate{
+  +createIterator() : IIterator
+}
+interface IIterator{
+  +hasNext() : boolean
+  +next() : Book
+}
+}
+User ..|> IObserver
+BookService ..|> IObservable
+BookService ..|> IAgregate
+BookService --> Book
+BookService --> BookIterator
+BookIterator --> Book
+BookIterator ..|> IIterator
+BookService --> IObserver
+Loan --> User
+Loan --> Book
+LoanService --> Loan
+LoanService --> Book
+LoanService --> User
+UserService --> User
+BookService --> RecommendationStrategy
+CategoryRecommendation ..|> RecommendationStrategy
+EditorialRecommendation ..|> RecommendationStrategy
+CategoryRecommendation --> Book
+EditorialRecommendation --> Book
+@enduml
