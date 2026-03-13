@@ -11,6 +11,7 @@ package main;
 
 import entity.Book;
 import entity.User;
+import java.util.List;
 import service.BookService;
 import service.UserService;
 import service.LoanService;
@@ -152,33 +153,42 @@ public class Menu {
     }
 
     private void recommendByCategory() {
-
-        bookService.setStrategy(new CategoryRecommendation());
-
+        System.out.println("Category:");
+        String category = scanner.nextLine();
+        bookService.setStrategy(new CategoryRecommendation(category));
         bookService.recommendBook();
-
     }
-
     private void recommendByEditorial() {
 
-        bookService.setStrategy(new EditorialRecommendation());
-
+        System.out.println("Editorial:");
+        String editorial = scanner.nextLine();
+        bookService.setStrategy(new EditorialRecommendation(editorial));
         bookService.recommendBook();
-
     }
 
     private void borrowBook() {
 
-        loanService.borrowBook(null, null);
+        System.out.println("User id:");
+        long userId = scanner.nextLong();
 
+        System.out.println("Book id:");
+        long bookId = scanner.nextLong();
+        scanner.nextLine();
+
+        User user = userService.findUserById(userId);
+        Book book = bookService.findBookById(bookId);
+
+        loanService.borrowBook(user, book);
     }
-
     private void returnBook() {
 
-        loanService.returnBook(null);
+        System.out.println("Loan id:");
+        long loanId = scanner.nextLong();
+        scanner.nextLine();
+
+        loanService.returnBook(loanId);
 
     }
-
     private void listLoans() {
 
         loanService.listLoans();

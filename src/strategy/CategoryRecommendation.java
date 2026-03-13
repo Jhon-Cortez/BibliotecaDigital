@@ -4,16 +4,35 @@
  */
 package strategy;
 import entity.Book;
+import java.util.ArrayList;
 import java.util.List;
-
 /**
  *
  * @author Asus
  */
+
+
 public class CategoryRecommendation implements RecommendationStrategy {
-     @Override
+
+    private String category;
+
+    public CategoryRecommendation(String category) {
+        this.category = category;
+    }
+
+    @Override
     public List<Book> recommend(List<Book> books) {
-        // Lógica de recomendación por categoría
-        return books;  
+
+        List<Book> result = new ArrayList<>();
+
+        for (Book book : books) {
+
+            if (book.getCategory().equalsIgnoreCase(category)) {
+                result.add(book);
+            }
+
+        }
+
+        return result;
     }
 }

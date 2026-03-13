@@ -55,4 +55,8 @@ public class Loan {
     public Book getBook() {
         return book;
     }
+
+    public Object getId() {
+        return id;
+    }
 }

@@ -60,6 +60,16 @@ public class BookService implements IObservable {
     public List<Book> listBook() {
         return books; // devuelve la lista de los libros
     }
+    public Book findBookById(Long id) {
+
+        for (Book book : books) {
+            if (book.getId().equals(id)) {
+                return book;
+            }
+        }
+
+        return null;
+    }
 
     //filtra libros por categoria
     public void filterBook() {
@@ -81,15 +91,21 @@ public class BookService implements IObservable {
     }
 
     //recomienda libros segun la estrategia configurada
-    public List<Book> recommendBook() {
-        
-        return strategy.recommend(books); // usa la estrategia para reomendar libros
-    }
+    public void recommendBook() {
+        if (strategy == null) {
+            System.out.println("Strategy not configured");
+            return;
+        }
+        List<Book> recommended = strategy.recommend(books);
 
+        for (Book book : recommended) {
+            System.out.println(book.getTitle());
+        }
+    }   
     //crea un iterador de libros
     public IIterator createIterator() {
-        
-        return null; // retorna el iterador para recorrer los libros
-    }
+    return new BookIterator(books);
 }
+}
+
 

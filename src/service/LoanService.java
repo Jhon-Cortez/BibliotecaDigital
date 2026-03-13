@@ -29,18 +29,33 @@ public class LoanService {
     }
 
     //devuelve un libro
-    public void returnBook(Book book) {
-       for (Loan loan : loans) {  
-        if (loan.getBook().equals(book) && !loan.isReturned()) {  
-            loan.returnBook();  // marca el libro como devuelto  
-            System.out.println("Libro devuelto: " + book.getTitle());  
-            break;  
-        }  
-    }  
+    public void returnBook(Long loanId) {
+        for (Loan loan : loans) {
+            if (loan.getId().equals(loanId)) {
+                loan.getBook().setStatus(true);
+                loans.remove(loan);
+                System.out.println("Book returned: " + loan.getBook().getTitle());
+                return;
+            }
+        }
+        System.out.println("Loan not found");
     }
 
     // lista todos los prestamos
-    public List<Loan> listLoans() {
-        return loans;// retorna la lista de prestamos
+    public void listLoans() {
+
+        if (loans.isEmpty()) {
+            System.out.println("No loans registered");
+            return;
+        }
+
+        for (Loan loan : loans) {
+
+            System.out.println(
+                "Loan ID: " + loan.getId() +
+                " | User: " + loan.getUser().getName() +
+                " | Book: " + loan.getBook().getTitle()
+            );
+        }
     }
 }

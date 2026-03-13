@@ -4,16 +4,34 @@
  */
 package strategy;
 import entity.Book;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Asus
  */
-public class EditorialRecommendation implements RecommendationStrategy{
+public class EditorialRecommendation implements RecommendationStrategy {
+
+    private String editorial;
+
+    public EditorialRecommendation(String editorial) {
+        this.editorial = editorial;
+    }
+
     @Override
     public List<Book> recommend(List<Book> books) {
-        // logica de recomendación por editorial
-        return books;  
+
+        List<Book> result = new ArrayList<>();
+
+        for (Book book : books) {
+
+            if (book.getEditorial().equalsIgnoreCase(editorial)) {
+                result.add(book);
+            }
+
+        }
+
+        return result;
     }
 }
