@@ -1,5 +1,6 @@
 package iterator;
 
+import entity.Book;
 import java.util.List;
 
 public class BookIterator implements IIterator {
@@ -23,6 +24,4 @@ public class BookIterator implements IIterator {
         }
         return null;
     }
-
-    
 }
