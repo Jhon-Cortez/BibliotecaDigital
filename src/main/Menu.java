@@ -68,6 +68,8 @@ public class Menu {
                 case 8 -> returnBook();
 
                 case 9 -> listLoans();
+                
+                case 10 -> removeBook();
 
                 case 0 -> System.out.println("Bye");
 
@@ -91,6 +93,7 @@ public class Menu {
         System.out.println("7. Borrow book");
         System.out.println("8. Return book");
         System.out.println("9. List loans");
+        System.out.println("10. Remove book");
         System.out.println("0. Exit");
 
         System.out.print("Option: ");
@@ -112,6 +115,7 @@ public class Menu {
         User user = new User(id, name, email);
 
         userService.addUser(user);
+        bookService.attach(user);
     }
 
     private void addBook() {
@@ -193,6 +197,14 @@ public class Menu {
 
         loanService.listLoans();
 
+    }
+
+    private void removeBook() {
+        System.out.println("Book id:");
+        long id = scanner.nextLong();
+        scanner.nextLine();
+
+        bookService.removeBook(id);
     }
 
 }

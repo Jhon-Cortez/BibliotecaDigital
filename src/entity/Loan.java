@@ -9,9 +9,10 @@ package entity;
  * @author rikyf
  */
 import java.util.Date;
+import java.util.List;
 
 public class Loan {
-
+    private static long counter = 1;
     private Long id;
     private Date loanDate;
     private Date returnDate;
@@ -20,6 +21,7 @@ public class Loan {
     private Book book;
 
     public Loan(User user, Book book) {
+        this.id = counter++;
         this.user = user;
         this.book = book;
         this.loanDate = new Date(); 
@@ -56,7 +58,7 @@ public class Loan {
         return book;
     }
 
-    public Object getId() {
+    public Long getId() {
         return id;
     }
 }

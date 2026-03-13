@@ -26,15 +26,19 @@ public class LoanService {
         Loan newLoan = new Loan(user, book);  //crea un nuevo préstamo
         loans.add(newLoan);  // lo añade a la lista
         System.out.println("Book borrowed: " + book.getTitle());
+        System.out.println("User: " + user.getName());
     }
 
     //devuelve un libro
     public void returnBook(Long loanId) {
         for (Loan loan : loans) {
             if (loan.getId().equals(loanId)) {
+                loan.returnBook();
                 loan.getBook().setStatus(true);
                 loans.remove(loan);
                 System.out.println("Book returned: " + loan.getBook().getTitle());
+                System.out.println("User: " + loan.getUser().getName());
+                System.out.println("Return date: " + loan.getReturnDate());
                 return;
             }
         }

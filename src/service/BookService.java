@@ -53,12 +53,24 @@ public class BookService implements IObservable {
     //elimina un libro
     public void removeBook(Long bookId) {
         books.removeIf(book -> book.getId().equals(bookId)); // elimina el libro con el id
-        notifyObservers("Libro removido: " + bookId);// notifica a los observadores
+        notifyObservers("Book removed: " + bookId);// notifica a los observadores
+        System.out.println("Book removed.");
     }
 
     //lista todos los libros
     public List<Book> listBook() {
-        return books; // devuelve la lista de los libros
+        BookIterator iterator = new BookIterator(books);
+
+        if (!iterator.hasNext()) {
+            System.out.println("There are no books available");
+            return books;
+        }
+
+        while (iterator.hasNext()) {
+            Book book = iterator.next();
+            System.out.println(book);
+        }
+        return books;
     }
     public Book findBookById(Long id) {
 
@@ -104,8 +116,8 @@ public class BookService implements IObservable {
     }   
     //crea un iterador de libros
     public IIterator createIterator() {
-    return new BookIterator(books);
-}
+        return new BookIterator(books);
+    }
 }
 
 
