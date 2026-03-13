@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
+import observer.IObserver;
+
 /**
  *
  * @author rikyf
@@ -17,7 +19,33 @@ public class User implements IObserver{
         this.name = name;
         this.email = email;
     }
+    @Override
     public void update(String data){
-        System.out.println(name + "recived notification" + data);
+        System.out.println(name + " received notification" + data);
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
 }

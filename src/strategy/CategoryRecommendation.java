@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Asus
  */
-public class CategoryRecommendation {
+public class CategoryRecommendation implements RecommendationStrategy {
      @Override
     public List<Book> recommend(List<Book> books) {
         // Lógica de recomendación por categoría

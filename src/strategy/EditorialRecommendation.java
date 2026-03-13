@@ -10,8 +10,8 @@ import java.util.List;
  *
  * @author Asus
  */
-public class EditorialRecommendation {
-        @Override
+public class EditorialRecommendation implements RecommendationStrategy{
+    @Override
     public List<Book> recommend(List<Book> books) {
         // logica de recomendación por editorial
         return books;  

@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package service;
-import Entity.Loan;
-import Entity.User;
-import Entity.Book;
+import entity.Loan;
+import entity.User;
+import entity.Book;
 import java.util.List;
 import java.util.ArrayList;
 /**
@@ -15,16 +15,17 @@ import java.util.ArrayList;
 public class LoanService {
     private List<Loan> loans;
 
-    public LoanService(List<Loan> loans) {
-        this.loans = loans;
+    public LoanService() {
+        this.loans = new ArrayList<>();
     }
+
 
     
     //registra un préstamo de libro
     public void borrowBook(User user, Book book) {
         Loan newLoan = new Loan(user, book);  //crea un nuevo préstamo
         loans.add(newLoan);  // lo añade a la lista
-        System.out.println("el prestamo fue realizado al libro: " + book.getTitle());
+        System.out.println("Book borrowed: " + book.getTitle());
     }
 
     //devuelve un libro

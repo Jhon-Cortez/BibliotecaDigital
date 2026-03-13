@@ -1,3 +1,6 @@
+package observable;
+import observer.IObserver;
+
 public interface IObservable {
     public void attach(IObserver observer);
 

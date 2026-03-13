@@ -14,13 +14,13 @@ public class BookIterator implements IIterator {
 
     @Override
     public boolean hasNext() {
-        return position < books.getUser().size();
+        return position < books.size();
     }
 
     @Override
     public Book next() {
         if (hasNext()) {
-            return books.getUser().get(position++);
+            return books.get(position++);
         }
         return null;
     }

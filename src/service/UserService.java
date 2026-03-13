@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package service;
-import Entity.User;
+import entity.User;
 import java.util.List;
 import java.util.ArrayList;
 /**
@@ -13,20 +13,20 @@ import java.util.ArrayList;
 public class UserService {
     private List<User> users;
 
-    public UserService(List<User> users) {
-        this.users = users;
+    public UserService() {
+        this.users = new ArrayList<>();
     }
 
     // Método para agregar un nuevo usuario
     public void addUser(User user) {
         users.add(user);
-        System.out.println("usuario agregado: " + user.getName());
+        System.out.println("Add user: " + user.getName());
     }
 
     // elimina un usuario por su ID
     public void removeUser(Long userId) {
         users.removeIf(user -> user.getId().equals(userId));  // Elimina el usuario atraves del id
-        System.out.println("usuario eliminado con id: " + userId);
+        System.out.println("Deleted user by ID: " + userId);
 
     }
 

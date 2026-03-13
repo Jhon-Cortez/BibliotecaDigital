@@ -3,26 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package service;
-import Entity.Book;
-import Observer.IObserver;
-import Strategy.RecommendationStrategy;
-import Iterator.IIterator;
-import Iterator.BookIterator;
-import java.util.List;
+import entity.Book;
+import observer.IObserver;
+import strategy.RecommendationStrategy;
+import iterator.IIterator;
+import iterator.BookIterator;
 import java.util.ArrayList;
+import java.util.List;
+import observable.IObservable;
+import java.util.Scanner;
 /**
  *
  * @author Asus
  */
-public class BookService {
+public class BookService implements IObservable {
+
     private List<IObserver> observers;
     private List<Book> books;
     private RecommendationStrategy strategy;
 
-    public BookService(List<IObserver> observers, List<Book> books, RecommendationStrategy strategy) {
-        this.observers = observers;
-        this.books = books;
-        this.strategy = strategy;
+    public BookService() {
+        this.observers = new ArrayList<>();
+        this.books = new ArrayList<>();
+        this.strategy = null;
     }
     // Métodos de la interfaz IObservable
     @Override
@@ -43,34 +46,35 @@ public class BookService {
     }
     
     // agregar un libro
-    public void addBook() {
-       books.add(book);
-       notifyObservers("Nuevo libro agregado: " + book.getTitle());  // notifica a los observadores
-
+    public void addBook(Book book) {
+         books.add(book);
+         notifyObservers("New book added: " + book.getTitle());
     }
-
     //elimina un libro
-    public void removeBook() {
-       books.removeIf(book -> book.getId().equals(bookId));  // elimina el libro con el id
-       notifyObservers("Libro removido: " + bookId);  // notifica a los observadores
-
+    public void removeBook(Long bookId) {
+        books.removeIf(book -> book.getId().equals(bookId)); // elimina el libro con el id
+        notifyObservers("Libro removido: " + bookId);// notifica a los observadores
     }
 
     //lista todos los libros
-    public void listBook() {
-        return list<book>; // devuelve la lista de los libros
+    public List<Book> listBook() {
+        return books; // devuelve la lista de los libros
     }
 
     //filtra libros por categoria
     public void filterBook() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter category: ");
+        String category = scanner.nextLine();
+
         for (Book book : books) {
             if (book.getCategory().equalsIgnoreCase(category)) {
-                // filtra los libros por categoría y muestra el resultado
                 System.out.println(book.getTitle());
             }
         }
     }
-
     //configura la estrategia de recomendacion de libros
     public void setStrategy(RecommendationStrategy strategy) {
         this.strategy = strategy;
